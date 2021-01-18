@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+
+  auth-service-database:
+    image: mysql
+    env_file:
+      - auth-service-mysql.env
+    ports:
+      - 3310:3306
+
+  group-service-database:
+    image: mysql
+    env_file:
+      - group-service-mysql.env
+    ports:
+      - 3311:3306
+
+  device-service-database:
+    image: mysql
+    env_file:
+      - device-service-mysql.env
+    ports:
+      - 3312:3306
+
+  permission-service-database:
+    image: mysql
+    env_file:
+      - permission-service-mysql.env
+    ports:
+      - 3313:3306
