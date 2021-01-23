@@ -1,7 +1,8 @@
 package com.wade.wet.data.service;
 
-import com.wade.wet.data.model.AddUserToGroupRequest;
 import com.wade.wet.data.model.Group;
+import com.wade.wet.data.model.request.AddUserToGroupRequest;
+import com.wade.wet.data.model.request.CreateGroupRequest;
 import org.apache.jena.rdf.model.*;
 import org.springframework.stereotype.Service;
 
@@ -10,37 +11,34 @@ public class GroupService {
 
     private final ModelService modelService;
     private final Model model;
-    private final Property groupNameProperty;
-    private final Property hasUserProperty;
 
     public GroupService(ModelService modelService) {
         this.modelService = modelService;
         this.model = modelService.getModel();
-
-        groupNameProperty = model.createProperty(ModelService.GROUP_URI + "isNamed");
-        hasUserProperty = model.createProperty(ModelService.GROUP_URI + "hasUser");
     }
 
-    public Group createGroup(Group group) {
-        printModel();
+    public Group createGroup(CreateGroupRequest request) {
+        Group group = request.getGroup();
         model.createResource(ModelService.GROUP_URI + group.getName())
-                .addProperty(groupNameProperty, group.getName());
+                .addProperty(modelService.getGroupNameProperty(), group.getName())
+                .addProperty(modelService.getHasAdminProperty(), request.getAdminEmail());
 
         modelService.writeModel();
         return group;
     }
 
     public void addUserToGroup(AddUserToGroupRequest request) {
-        ResIterator resIterator = model.listSubjectsWithProperty(groupNameProperty);
+        ResIterator resIterator = model.listSubjectsWithProperty(modelService.getGroupNameProperty());
 
         while (resIterator.hasNext()) {
             Resource resource = resIterator.nextResource();
 
 
-            String modelGroupName = resource.getProperty(groupNameProperty).getObject().toString();
+            String modelGroupName = resource.getProperty(modelService.getGroupNameProperty()).getObject().toString();
 
             if (modelGroupName.equals(request.getGroupName())) {
-                resource.addProperty(hasUserProperty, request.getUserEmail());
+                resource.addProperty(modelService.getHasUserProperty(), request.getUserEmail());
+                break;
             }
         }
 
@@ -48,7 +46,7 @@ public class GroupService {
     }
 
     public String getGroup(String groupName) {
-        Selector selector = new SimpleSelector(null, groupNameProperty, groupName);
+        Selector selector = new SimpleSelector(null, modelService.getGroupNameProperty(), groupName);
 
         StmtIterator iter = model.listStatements(selector);
 

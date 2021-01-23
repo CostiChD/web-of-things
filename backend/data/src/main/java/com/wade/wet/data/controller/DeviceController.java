@@ -2,6 +2,7 @@ package com.wade.wet.data.controller;
 
 import com.wade.wet.data.model.Device;
 import com.wade.wet.data.service.DeviceService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +20,8 @@ public class DeviceController {
     }
 
     @PostMapping
-    public ResponseEntity<String> registerDevice(@RequestBody Device device) {
-        return null;
+    public ResponseEntity<Device> registerDevice(@RequestBody Device device) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(deviceService.registerDevice(device));
     }
 
 }
