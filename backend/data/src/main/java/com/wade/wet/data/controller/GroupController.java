@@ -3,6 +3,7 @@ package com.wade.wet.data.controller;
 import com.wade.wet.data.model.Group;
 import com.wade.wet.data.model.request.AddUserToGroupRequest;
 import com.wade.wet.data.model.request.CreateGroupRequest;
+import com.wade.wet.data.model.request.GetDevicesRequest;
 import com.wade.wet.data.model.response.GetDevicesForGroupResponse;
 import com.wade.wet.data.model.response.GetGroupsForUserResponse;
 import com.wade.wet.data.service.GroupService;
@@ -27,9 +28,9 @@ public class GroupController {
         return ResponseEntity.status(HttpStatus.OK).body(groupService.getGroupsForUser(userEmail));
     }
 
-    @GetMapping("/{groupName}/devices")
-    public ResponseEntity<GetDevicesForGroupResponse> getDevicesForGroup(@PathVariable String groupName) {
-        return null;
+    @GetMapping("/devices")
+    public ResponseEntity<GetDevicesForGroupResponse> getDevicesForGroup(@RequestBody GetDevicesRequest request) {
+        return ResponseEntity.status(HttpStatus.OK).body(groupService.getDevicesForGroup(request));
     }
 
     @PostMapping

@@ -1,8 +1,10 @@
 package com.wade.wet.data.service;
 
+import com.wade.wet.data.model.Device;
 import com.wade.wet.data.model.Group;
 import com.wade.wet.data.model.request.AddUserToGroupRequest;
 import com.wade.wet.data.model.request.CreateGroupRequest;
+import com.wade.wet.data.model.request.GetDevicesRequest;
 import com.wade.wet.data.model.response.GetDevicesForGroupResponse;
 import com.wade.wet.data.model.response.GetGroupsForUserResponse;
 import org.apache.jena.rdf.model.*;
@@ -51,23 +53,49 @@ public class GroupService {
         return new GetGroupsForUserResponse(groupNames);
     }
 
-//    public GetDevicesForGroupResponse getDevicesForGroup(String groupName) {
-//        ResIterator resIterator = getGroupsIterator();
-//
-//        while (resIterator.hasNext()) {
-//            Resource resource = resIterator.nextResource();
-//
-//            String modelGroupName = resource.getProperty(modelService.getGroupNameProperty()).getObject().toString();
-//            String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
-//
-//            if (modelGroupName.equals(groupName) && modelGroupAdmin.equals(request.getAdminEmail())) {
-//                resource.addProperty(modelService.getHasUserProperty(), request.getUserEmailToAdd());
-//                break;
-//            }
-//        }
-//
-//        return null;
-//    }
+    public GetDevicesForGroupResponse getDevicesForGroup(GetDevicesRequest request) {
+        ResIterator resIterator = getGroupsIterator();
+        List<Device> devices = new ArrayList<>();
+
+        while (resIterator.hasNext()) {
+            Resource resource = resIterator.nextResource();
+            String modelGroupName = resource.getProperty(modelService.getGroupNameProperty()).getObject().toString();
+
+            StmtIterator stmtIterator = resource.listProperties(modelService.getHasUserProperty());
+            boolean isInGroup = false;
+            while (stmtIterator.hasNext() && !isInGroup) {
+                if (stmtIterator.nextStatement().getObject().toString().equals(request.getUserEmail())
+                        && modelGroupName.equals(request.getGroupName())) {
+                    devices = getDevicesFromGroupResource(resource);
+                    isInGroup = true;
+                }
+            }
+
+            if (!isInGroup) {
+                String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
+
+                if (modelGroupName.equals(request.getGroupName()) && modelGroupAdmin.equals(request.getUserEmail())) {
+                    devices = getDevicesFromGroupResource(resource);
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        return new GetDevicesForGroupResponse(devices);
+    }
+
+    private List<Device> getDevicesFromGroupResource(Resource resource) {
+        List<Device> devices = new ArrayList<>();
+        StmtIterator stmtIterator = resource.listProperties(modelService.getHasPermissionProperty());
+
+        while (stmtIterator.hasNext()) {
+            devices.add(new Device(stmtIterator.nextStatement().getObject().toString()));
+        }
+
+        return devices;
+    }
 
     public Group createGroup(CreateGroupRequest request) {
         Group group = request.getGroup();
