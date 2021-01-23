@@ -1,66 +1,54 @@
 package com.wade.wet.data.service;
 
+import com.wade.wet.data.model.AddUserToGroupRequest;
 import com.wade.wet.data.model.Group;
 import org.apache.jena.rdf.model.*;
-import org.apache.jena.riot.RDFDataMgr;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 @Service
 public class GroupService {
 
-    private static final String MODEL_PATH = "group.rdf";
-    private static final String GROUP_URI = "http://localhost:8082/groups/";
+    private final ModelService modelService;
+    private final Model model;
+    private final Property groupNameProperty;
+    private final Property hasUserProperty;
 
-    private Model model;
-    private Property groupName;
+    public GroupService(ModelService modelService) {
+        this.modelService = modelService;
+        this.model = modelService.getModel();
 
-    @PostConstruct
-    void loadModel() {
-        model = ModelFactory.createDefaultModel();
-        OutputStream out = null;
-        try {
-            out = new FileOutputStream(MODEL_PATH);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        model.write(out);
-
-        InputStream in = RDFDataMgr.open(MODEL_PATH);
-        if (in == null) {
-            throw new IllegalArgumentException("File: " + MODEL_PATH + " not found");
-        }
-
-        model.read(in, null);
-
-        groupName = model.createProperty(GROUP_URI + "/isNamed");
-    }
-
-    void writeModel() {
-        OutputStream out = null;
-        try {
-            out = new FileOutputStream(MODEL_PATH);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        model.write(out);
+        groupNameProperty = model.createProperty(ModelService.GROUP_URI + "isNamed");
+        hasUserProperty = model.createProperty(ModelService.GROUP_URI + "hasUser");
     }
 
     public Group createGroup(Group group) {
         printModel();
-        model.createResource(GROUP_URI + group.getName()).addProperty(groupName, group.getName());
+        model.createResource(ModelService.GROUP_URI + group.getName())
+                .addProperty(groupNameProperty, group.getName());
 
-        writeModel();
+        modelService.writeModel();
         return group;
     }
 
+    public void addUserToGroup(AddUserToGroupRequest request) {
+        ResIterator resIterator = model.listSubjectsWithProperty(groupNameProperty);
+
+        while (resIterator.hasNext()) {
+            Resource resource = resIterator.nextResource();
+
+
+            String modelGroupName = resource.getProperty(groupNameProperty).getObject().toString();
+
+            if (modelGroupName.equals(request.getGroupName())) {
+                resource.addProperty(hasUserProperty, request.getUserEmail());
+            }
+        }
+
+        modelService.writeModel();
+    }
+
     public String getGroup(String groupName) {
-        Selector selector = new SimpleSelector(null, this.groupName, groupName);
+        Selector selector = new SimpleSelector(null, groupNameProperty, groupName);
 
         StmtIterator iter = model.listStatements(selector);
 

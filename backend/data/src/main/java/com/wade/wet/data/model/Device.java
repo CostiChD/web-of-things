@@ -1,9 +1,9 @@
 package com.wade.wet.data.model;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
-public class Group {
+public class Device {
 
     private String name;
 
