@@ -13,8 +13,10 @@ import java.io.OutputStream;
 
 @Service
 public class GroupService {
+
     private static final String MODEL_PATH = "group.rdf";
     private static final String GROUP_URI = "http://localhost:8082/groups/";
+
     private Model model;
     private Property groupName;
 
@@ -49,14 +51,12 @@ public class GroupService {
         model.write(out);
     }
 
-    public String createGroup(Group group) {
+    public Group createGroup(Group group) {
         printModel();
-        Resource resource = model.createResource(GROUP_URI + group.getName())
-                .addProperty(groupName, group.getName());
+        model.createResource(GROUP_URI + group.getName()).addProperty(groupName, group.getName());
 
-        String resourceStr = resource.toString();
         writeModel();
-        return resourceStr;
+        return group;
     }
 
     public String getGroup(String groupName) {

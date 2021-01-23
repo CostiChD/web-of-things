@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  product-service-database:
+    image: mysql
+    env_file:
+      - auth-service-mysql.env
+    ports:
+      - 3310:3306
