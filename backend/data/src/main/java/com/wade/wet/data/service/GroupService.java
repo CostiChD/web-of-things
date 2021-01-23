@@ -6,6 +6,9 @@ import com.wade.wet.data.model.request.CreateGroupRequest;
 import org.apache.jena.rdf.model.*;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class GroupService {
 
@@ -16,6 +19,42 @@ public class GroupService {
         this.modelService = modelService;
         this.model = modelService.getModel();
     }
+
+    public List<String> getGroupsForUser(String userEmail) {
+        List<String> groupNames = new ArrayList<>();
+
+        ResIterator resIterator = getGroupsIterator();
+
+        while (resIterator.hasNext()) {
+            Resource resource = resIterator.nextResource();
+
+            String modelGroupHasUser = resource.getProperty(modelService.getHasUserProperty()).getObject().toString();
+            String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
+            String modelGroupName = resource.getProperty(modelService.getGroupNameProperty()).getObject().toString();
+
+            if (modelGroupHasUser.equals(userEmail) || modelGroupAdmin.equals(userEmail)) {
+                groupNames.add(modelGroupName);
+            }
+        }
+
+        return groupNames;
+    }
+
+//    public List<Device> getDevicesForGroup(String groupName) {
+//        ResIterator resIterator = getGroupsIterator();
+//
+//        while (resIterator.hasNext()) {
+//            Resource resource = resIterator.nextResource();
+//
+//            String modelGroupName = resource.getProperty(modelService.getGroupNameProperty()).getObject().toString();
+//            String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
+//
+//            if (modelGroupName.equals(groupName) && modelGroupAdmin.equals(request.getAdminEmail())) {
+//                resource.addProperty(modelService.getHasUserProperty(), request.getUserEmailToAdd());
+//                break;
+//            }
+//        }
+//    }
 
     public Group createGroup(CreateGroupRequest request) {
         Group group = request.getGroup();
@@ -28,21 +67,25 @@ public class GroupService {
     }
 
     public void addUserToGroup(AddUserToGroupRequest request) {
-        ResIterator resIterator = model.listSubjectsWithProperty(modelService.getGroupNameProperty());
+        ResIterator resIterator = getGroupsIterator();
 
         while (resIterator.hasNext()) {
             Resource resource = resIterator.nextResource();
 
-
             String modelGroupName = resource.getProperty(modelService.getGroupNameProperty()).getObject().toString();
+            String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
 
-            if (modelGroupName.equals(request.getGroupName())) {
-                resource.addProperty(modelService.getHasUserProperty(), request.getUserEmail());
+            if (modelGroupName.equals(request.getGroupName()) && modelGroupAdmin.equals(request.getAdminEmail())) {
+                resource.addProperty(modelService.getHasUserProperty(), request.getUserEmailToAdd());
                 break;
             }
         }
 
         modelService.writeModel();
+    }
+
+    private ResIterator getGroupsIterator() {
+        return model.listSubjectsWithProperty(modelService.getGroupNameProperty());
     }
 
     public String getGroup(String groupName) {

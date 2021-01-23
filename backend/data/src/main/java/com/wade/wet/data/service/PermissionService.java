@@ -28,7 +28,7 @@ public class PermissionService {
             String modelGroupName = resource.getProperty(modelService.getGroupNameProperty()).getObject().toString();
             String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
 
-            if (modelGroupName.equals(permission.getGroupName()) && modelGroupAdmin.equals(request.getUserEmail())) {
+            if (modelGroupName.equals(permission.getGroupName()) && modelGroupAdmin.equals(request.getAdminEmail())) {
                 resource.addProperty(modelService.getHasPermissionProperty(), permission.getDeviceName());
                 break;
             }

@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class AddUserToGroupRequest {
 
-    private String userEmail;
+    private String adminEmail;
+
+    private String userEmailToAdd;
 
     private String groupName;
 

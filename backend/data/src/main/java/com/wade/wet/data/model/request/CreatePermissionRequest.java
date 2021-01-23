@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class CreatePermissionRequest {
 
-    private String userEmail;
+    private String adminEmail;
 
     private Permission permission;
 
