@@ -3,6 +3,8 @@ package com.wade.wet.data.service;
 import com.wade.wet.data.model.Group;
 import com.wade.wet.data.model.request.AddUserToGroupRequest;
 import com.wade.wet.data.model.request.CreateGroupRequest;
+import com.wade.wet.data.model.response.GetDevicesForGroupResponse;
+import com.wade.wet.data.model.response.GetGroupsForUserResponse;
 import org.apache.jena.rdf.model.*;
 import org.springframework.stereotype.Service;
 
@@ -20,27 +22,36 @@ public class GroupService {
         this.model = modelService.getModel();
     }
 
-    public List<String> getGroupsForUser(String userEmail) {
+    public GetGroupsForUserResponse getGroupsForUser(String userEmail) {
         List<String> groupNames = new ArrayList<>();
-
         ResIterator resIterator = getGroupsIterator();
 
         while (resIterator.hasNext()) {
             Resource resource = resIterator.nextResource();
 
-            String modelGroupHasUser = resource.getProperty(modelService.getHasUserProperty()).getObject().toString();
-            String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
-            String modelGroupName = resource.getProperty(modelService.getGroupNameProperty()).getObject().toString();
+            StmtIterator stmtIterator = resource.listProperties(modelService.getHasUserProperty());
+            boolean isInGroup = false;
 
-            if (modelGroupHasUser.equals(userEmail) || modelGroupAdmin.equals(userEmail)) {
-                groupNames.add(modelGroupName);
+            while (stmtIterator.hasNext() && !isInGroup) {
+                if (stmtIterator.nextStatement().getObject().toString().equals(userEmail)) {
+                    groupNames.add(resource.getProperty(modelService.getGroupNameProperty()).getObject().toString());
+                    isInGroup = true;
+                }
+            }
+
+            if (!isInGroup) {
+                String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
+
+                if (modelGroupAdmin.equals(userEmail)) {
+                    groupNames.add(resource.getProperty(modelService.getGroupNameProperty()).getObject().toString());
+                }
             }
         }
 
-        return groupNames;
+        return new GetGroupsForUserResponse(groupNames);
     }
 
-//    public List<Device> getDevicesForGroup(String groupName) {
+//    public GetDevicesForGroupResponse getDevicesForGroup(String groupName) {
 //        ResIterator resIterator = getGroupsIterator();
 //
 //        while (resIterator.hasNext()) {
@@ -54,6 +65,8 @@ public class GroupService {
 //                break;
 //            }
 //        }
+//
+//        return null;
 //    }
 
     public Group createGroup(CreateGroupRequest request) {
@@ -86,36 +99,6 @@ public class GroupService {
 
     private ResIterator getGroupsIterator() {
         return model.listSubjectsWithProperty(modelService.getGroupNameProperty());
-    }
-
-    public String getGroup(String groupName) {
-        Selector selector = new SimpleSelector(null, modelService.getGroupNameProperty(), groupName);
-
-        StmtIterator iter = model.listStatements(selector);
-
-        // print out the predicate, subject and object of each statement
-        while (iter.hasNext()) {
-            Statement stmt = iter.nextStatement();  // get next statement
-            Resource subject = stmt.getSubject();     // get the subject
-            Property predicate = stmt.getPredicate();   // get the predicate
-            RDFNode object = stmt.getObject();      // get the object
-
-            System.out.print(subject.toString());
-            System.out.print(" " + predicate.toString() + " ");
-            if (object instanceof Resource) {
-                System.out.println("1111111");
-                return object.toString();
-//                System.out.print(object.toString());
-            } else {
-                // object is a literal
-                return object.toString();
-//                System.out.print("\"" + object.toString() + "\"");
-            }
-
-//            System.out.println(" .");
-        }
-
-        return new Group().toString();
     }
 
     private void printModel() {
