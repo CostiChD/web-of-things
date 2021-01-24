@@ -113,25 +113,18 @@ public class GroupService {
     }
 
     public String deleteGroup(String groupName) {
-        Resource resource = model.getResource(ModelService.GROUP_URI + groupName);
-        System.out.println(resource.toString());
+        StmtIterator iterator = model.listStatements();
+        List<Statement> statements = new ArrayList<>();
 
-        Selector selector = new SimpleSelector(null, modelService.getGroupNameProperty(), groupName);
-        StmtIterator stmtIterator = model.listStatements(selector);
-        Statement group = null;
-        boolean isFound = false;
-
-        while (stmtIterator.hasNext() && !isFound) {
-            group = stmtIterator.nextStatement();
-            String modelGroupName = group.getObject().toString();
-
-            if (modelGroupName.equals(groupName)) {
-                isFound = true;
+        while (iterator.hasNext()) {
+            Statement statement = iterator.nextStatement();
+            if (statement.getSubject().toString().equals(ModelService.GROUP_URI + groupName)) {
+                statements.add(statement);
             }
         }
 
-        if (isFound) {
-            model.remove(group);
+        for (Statement statement : statements) {
+            model.remove(statement);
         }
 
         modelService.writeModel();
