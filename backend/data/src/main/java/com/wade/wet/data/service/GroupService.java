@@ -63,24 +63,25 @@ public class GroupService {
             Resource resource = resIterator.nextResource();
             String modelGroupName = resource.getProperty(modelService.getGroupNameProperty()).getObject().toString();
 
-            StmtIterator stmtIterator = resource.listProperties(modelService.getHasUserProperty());
-            boolean isInGroup = false;
-            while (stmtIterator.hasNext() && !isInGroup) {
-                if (stmtIterator.nextStatement().getObject().toString().equals(request.getUserEmail())
-                        && modelGroupName.equals(request.getGroupName())) {
-                    devices = getDevicesFromGroupResource(resource);
-                    isInGroup = true;
-                }
-            }
+            if (modelGroupName.equals(request.getGroupName())) {
+                StmtIterator stmtIterator = resource.listProperties(modelService.getHasUserProperty());
+                boolean isInGroup = false;
 
-            if (!isInGroup) {
-                String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
-
-                if (modelGroupName.equals(request.getGroupName()) && modelGroupAdmin.equals(request.getUserEmail())) {
-                    devices = getDevicesFromGroupResource(resource);
-                    break;
+                while (stmtIterator.hasNext() && !isInGroup) {
+                    if (stmtIterator.nextStatement().getObject().toString().equals(request.getUserEmail())) {
+                        devices = getDevicesFromGroupResource(resource);
+                        isInGroup = true;
+                    }
                 }
-            } else {
+
+                if (!isInGroup) {
+                    String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
+
+                    if (modelGroupAdmin.equals(request.getUserEmail())) {
+                        devices = getDevicesFromGroupResource(resource);
+                    }
+                }
+
                 break;
             }
         }
@@ -109,6 +110,32 @@ public class GroupService {
 
         modelService.writeModel();
         return group;
+    }
+
+    public String deleteGroup(String groupName) {
+        Resource resource = model.getResource(ModelService.GROUP_URI + groupName);
+        System.out.println(resource.toString());
+
+        Selector selector = new SimpleSelector(null, modelService.getGroupNameProperty(), groupName);
+        StmtIterator stmtIterator = model.listStatements(selector);
+        Statement group = null;
+        boolean isFound = false;
+
+        while (stmtIterator.hasNext() && !isFound) {
+            group = stmtIterator.nextStatement();
+            String modelGroupName = group.getObject().toString();
+
+            if (modelGroupName.equals(groupName)) {
+                isFound = true;
+            }
+        }
+
+        if (isFound) {
+            model.remove(group);
+        }
+
+        modelService.writeModel();
+        return "Group deleted";
     }
 
     public void addUserToGroup(AddUserToGroupRequest request) {

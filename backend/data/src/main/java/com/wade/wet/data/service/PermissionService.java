@@ -35,7 +35,6 @@ public class PermissionService {
         }
 
         modelService.writeModel();
-
         return request.getPermission();
     }
 

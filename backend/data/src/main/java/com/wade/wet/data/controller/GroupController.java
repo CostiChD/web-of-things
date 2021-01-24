@@ -29,7 +29,10 @@ public class GroupController {
     }
 
     @GetMapping("/devices")
-    public ResponseEntity<GetDevicesForGroupResponse> getDevicesForGroup(@RequestBody GetDevicesRequest request) {
+    public ResponseEntity<GetDevicesForGroupResponse> getDevicesForGroup(
+            @PathParam("userEmail") String userEmail,
+            @PathParam("groupName") String groupName) {
+        GetDevicesRequest request = new GetDevicesRequest(userEmail, groupName);
         return ResponseEntity.status(HttpStatus.OK).body(groupService.getDevicesForGroup(request));
     }
 
@@ -42,6 +45,11 @@ public class GroupController {
     public ResponseEntity<Void> addUserToGroup(@RequestBody AddUserToGroupRequest request) {
         groupService.addUserToGroup(request);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @DeleteMapping("/{groupName}")
+    public ResponseEntity<String> deleteGroup(@PathVariable String groupName) {
+        return ResponseEntity.status(HttpStatus.OK).body(groupService.deleteGroup(groupName));
     }
 
 }
