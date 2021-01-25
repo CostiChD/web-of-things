@@ -1,17 +1,10 @@
 package com.wade.wet.data.controller;
 
-import com.wade.wet.data.enums.WotActionType;
 import com.wade.wet.data.model.Device;
-import com.wade.wet.data.model.WotAction;
-import com.wade.wet.data.model.WotEvent;
-import com.wade.wet.data.model.WotProperty;
 import com.wade.wet.data.service.DeviceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/devices")
@@ -31,6 +24,11 @@ public class DeviceController {
     @PostMapping
     public ResponseEntity<Device> registerDevice(@RequestBody Device device) {
         return ResponseEntity.status(HttpStatus.CREATED).body(deviceService.registerDevice(device));
+    }
+
+    @DeleteMapping("/{deviceName}")
+    public ResponseEntity<String> deleteDevice(@PathVariable String deviceName) {
+        return ResponseEntity.status(HttpStatus.OK).body(deviceService.removeDevice(deviceName));
     }
 
 }

@@ -86,6 +86,26 @@ public class DeviceService {
         return device;
     }
 
+    public String removeDevice(String deviceName) {
+        ResIterator resIterator = model.listSubjectsWithProperty(modelService.getDeviceNameProperty(), deviceName);
+        while (resIterator.hasNext()) {
+            Resource resource = resIterator.nextResource();
+            resource.removeProperties();
+        }
+
+        resIterator = model.listSubjectsWithProperty(modelService.getPropertyValueProperty());
+        removeDeviceDetails(resIterator, deviceName);
+
+        resIterator = model.listSubjectsWithProperty(modelService.getActionTypeProperty());
+        removeDeviceDetails(resIterator, deviceName);
+
+        resIterator = model.listSubjectsWithProperty(modelService.getEventNameProperty());
+        removeDeviceDetails(resIterator, deviceName);
+
+        modelService.writeModel();
+        return "Device removed";
+    }
+
     private List<WotProperty> getDeviceProperties(String deviceName) {
         List<WotProperty> properties = new ArrayList<>();
         ResIterator resIterator = model.listSubjectsWithProperty(modelService.getPropertyValueProperty());
@@ -147,6 +167,15 @@ public class DeviceService {
         }
 
         return events;
+    }
+
+    private void removeDeviceDetails(ResIterator resIterator, String deviceName) {
+        while (resIterator.hasNext()) {
+            Resource resource = resIterator.nextResource();
+            if (resource.toString().contains(ModelService.DEVICE_URI + deviceName + "/")) {
+                resource.removeProperties();
+            }
+        }
     }
 
 }
