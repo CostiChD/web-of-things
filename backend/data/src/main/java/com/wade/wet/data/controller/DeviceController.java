@@ -25,20 +25,7 @@ public class DeviceController {
 
     @GetMapping("/{deviceName}")
     public ResponseEntity<Device> getDevice(@PathVariable String deviceName) {
-
-        List<WotProperty> properties = new ArrayList<>();
-        properties.add(new WotProperty("status", "ok", "propertieslinnnnnnnnnnnnk"));
-        properties.add(new WotProperty("status2", "ok2", "propertieslinnnnnnnnnnnnk2"));
-
-        List<WotAction> actions = new ArrayList<>();
-        actions.add(new WotAction("Turn on/off", WotActionType.SWITCHABLE, "actionslinnnnnnnnnnnnk"));
-
-        List<WotEvent> events = new ArrayList<>();
-        events.add(new WotEvent("overheating", "The lamp started overheating.", "eventslinnnnnnnnnnnnk"));
-
-        Device device = new Device("Device2", "Device2 description", properties, actions, events);
-
-        return ResponseEntity.status(HttpStatus.OK).body(device);
+        return ResponseEntity.status(HttpStatus.OK).body(deviceService.getDevice(deviceName));
     }
 
     @PostMapping

@@ -21,11 +21,26 @@ public class ModelService {
 
     public static final String MODEL_PATH = "group.rdf";
     public static final String GROUP_URI = "http://localhost:8082/groups/";
+    public static final String DEVICE_URI = "http://localhost:8082/devices/";
+    public static final String DEVICE_PROPERTY_URI = "http://localhost:8082/devices/properties/";
+    public static final String DEVICE_ACTION_URI = "http://localhost:8082/devices/actions/";
+    public static final String DEVICE_EVENT_URI = "http://localhost:8082/devices/events/";
 
     private Property groupNameProperty;
     private Property hasUserProperty;
     private Property hasAdminProperty;
     private Property hasPermissionProperty;
+    private Property deviceNameProperty;
+    private Property deviceDescriptionProperty;
+    private Property propertyNameProperty;
+    private Property propertyValueProperty;
+    private Property propertySourceLinkProperty;
+    private Property actionNameProperty;
+    private Property actionTypeProperty;
+    private Property actionSourceLinkProperty;
+    private Property eventNameProperty;
+    private Property eventDescriptionProperty;
+    private Property eventSourceLinkProperty;
 
     public Property getGroupNameProperty() {
         return groupNameProperty;
@@ -53,6 +68,17 @@ public class ModelService {
         hasUserProperty = model.createProperty(ModelService.GROUP_URI + "hasUser");
         hasAdminProperty = model.createProperty(ModelService.GROUP_URI + "hasAdmin");
         hasPermissionProperty = model.createProperty(ModelService.GROUP_URI + "hasPermission");
+        deviceNameProperty = model.createProperty(ModelService.DEVICE_URI + "isNamed");
+        deviceDescriptionProperty = model.createProperty(ModelService.DEVICE_URI + "hasDescription");
+        propertyNameProperty = model.createProperty(ModelService.DEVICE_PROPERTY_URI + "isNamed");
+        propertyValueProperty = model.createProperty(ModelService.DEVICE_PROPERTY_URI + "hasValue");
+        propertySourceLinkProperty = model.createProperty(ModelService.DEVICE_PROPERTY_URI + "hasSourceLink");
+        actionNameProperty = model.createProperty(ModelService.DEVICE_ACTION_URI + "isNamed");
+        actionTypeProperty = model.createProperty(ModelService.DEVICE_ACTION_URI + "isOfType");
+        actionSourceLinkProperty = model.createProperty(ModelService.DEVICE_ACTION_URI + "hasSourceLink");
+        eventNameProperty = model.createProperty(ModelService.DEVICE_EVENT_URI + "isNamed");
+        eventDescriptionProperty = model.createProperty(ModelService.DEVICE_EVENT_URI + "hasDescription");
+        eventSourceLinkProperty = model.createProperty(ModelService.DEVICE_EVENT_URI + "hasSourceLink");
 
         OutputStream out = null;
         try {
