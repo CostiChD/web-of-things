@@ -1,8 +1,8 @@
 package com.wade.wet.data.controller;
 
 import com.wade.wet.data.model.Permission;
-import com.wade.wet.data.model.request.CreatePermissionRequest;
-import com.wade.wet.data.model.request.DeletePermissionRequest;
+import com.wade.wet.data.request.CreatePermissionRequest;
+import com.wade.wet.data.request.DeletePermissionRequest;
 import com.wade.wet.data.service.PermissionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

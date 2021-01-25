@@ -3,11 +3,11 @@ package com.wade.wet.data.service;
 import com.wade.wet.data.dto.GroupDto;
 import com.wade.wet.data.model.Device;
 import com.wade.wet.data.model.Group;
-import com.wade.wet.data.model.request.AddUserToGroupRequest;
-import com.wade.wet.data.model.request.CreateGroupRequest;
-import com.wade.wet.data.model.request.GetDevicesRequest;
-import com.wade.wet.data.model.response.GetDevicesForGroupResponse;
-import com.wade.wet.data.model.response.GetGroupsForUserResponse;
+import com.wade.wet.data.request.AddUserToGroupRequest;
+import com.wade.wet.data.request.CreateGroupRequest;
+import com.wade.wet.data.request.GetDevicesRequest;
+import com.wade.wet.data.response.GetDevicesForGroupResponse;
+import com.wade.wet.data.response.GetGroupsForUserResponse;
 import org.apache.jena.rdf.model.*;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.wade.wet.data.model.request;
+package com.wade.wet.data.request;
 
 import com.wade.wet.data.model.Group;
 import lombok.AllArgsConstructor;

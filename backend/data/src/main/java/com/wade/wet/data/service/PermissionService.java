@@ -1,8 +1,8 @@
 package com.wade.wet.data.service;
 
 import com.wade.wet.data.model.Permission;
-import com.wade.wet.data.model.request.CreatePermissionRequest;
-import com.wade.wet.data.model.request.DeletePermissionRequest;
+import com.wade.wet.data.request.CreatePermissionRequest;
+import com.wade.wet.data.request.DeletePermissionRequest;
 import org.apache.jena.rdf.model.*;
 import org.springframework.stereotype.Service;
 

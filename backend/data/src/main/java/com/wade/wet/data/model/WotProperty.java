@@ -4,21 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Device {
+public class WotProperty {
 
     private String name;
 
-    private String description;
+    private String value;
 
-    private List<WotProperty> properties;
-
-    private List<WotAction> actions;
-
-    private List<WotEvent> events;
+    private String sourceLink;
 
 }

@@ -1,11 +1,11 @@
 package com.wade.wet.data.controller;
 
 import com.wade.wet.data.model.Group;
-import com.wade.wet.data.model.request.AddUserToGroupRequest;
-import com.wade.wet.data.model.request.CreateGroupRequest;
-import com.wade.wet.data.model.request.GetDevicesRequest;
-import com.wade.wet.data.model.response.GetDevicesForGroupResponse;
-import com.wade.wet.data.model.response.GetGroupsForUserResponse;
+import com.wade.wet.data.request.AddUserToGroupRequest;
+import com.wade.wet.data.request.CreateGroupRequest;
+import com.wade.wet.data.request.GetDevicesRequest;
+import com.wade.wet.data.response.GetDevicesForGroupResponse;
+import com.wade.wet.data.response.GetGroupsForUserResponse;
 import com.wade.wet.data.service.GroupService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

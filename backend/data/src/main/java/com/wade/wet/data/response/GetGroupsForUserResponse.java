@@ -1,4 +1,4 @@
-package com.wade.wet.data.model.response;
+package com.wade.wet.data.response;
 
 import com.wade.wet.data.dto.GroupDto;
 import lombok.AllArgsConstructor;

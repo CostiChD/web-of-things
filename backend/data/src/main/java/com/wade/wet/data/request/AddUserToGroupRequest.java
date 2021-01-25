@@ -1,6 +1,5 @@
-package com.wade.wet.data.model.request;
+package com.wade.wet.data.request;
 
-import com.wade.wet.data.model.Permission;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreatePermissionRequest {
+public class AddUserToGroupRequest {
 
     private String adminEmail;
 
-    private Permission permission;
+    private String userEmailToAdd;
+
+    private String groupName;
 
 }
