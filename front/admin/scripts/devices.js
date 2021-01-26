@@ -2,8 +2,27 @@ let baseUrl = 'http://localhost:8082';
 
 (function () {
     createDeviceExitButtonListener();
-	fetchDevices3();
+    registerDeviceListener();
+	fetchDevices();
 })();
+
+function registerDeviceListener() {
+	document.getElementById('register-device').addEventListener("click", function (e) {
+			fetch(baseUrl + '/devices/' + document.getElementById("serial-number").value, {
+					method: "POST",
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+				.then(resp => resp.json())
+				.then(myJson => {
+					window.location.href = "../admin/devices.html";
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		});
+}
 
 function createDeviceExitButtonListener() {
 	document.getElementsByClassName("exit-button-container")[0].addEventListener("click", function(e) {
@@ -14,7 +33,7 @@ function createDeviceExitButtonListener() {
 	});
 }
 
-function fetchDevices3() {
+function fetchDevices() {
 	let tbody = document.getElementById("devices-list");
 	tbody.innerHTML = '';
 

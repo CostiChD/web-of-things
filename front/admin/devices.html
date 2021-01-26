@@ -22,10 +22,13 @@
                     <button class="mobile-nav-button" onclick="showNav()"><strong>Menu</strong></button>
                 </div>
                 <div class="right-side">
+                    <a href="../index.html" id="admin-home-button">Home</a>
+        
                     <div class="user">
                         <img src="../../images/admin.png" alt="avatar" />
                         <p class="name" id="admin-email"></p>
                     </div>
+        
                 </div>
             </div>
         </div>
@@ -33,7 +36,12 @@
         <div class="container">
 
             <div class="devices-container">
-				<div class="page-title">Devices</div>
+                <div class="page-title">Devices</div>
+                
+                <p>Write the serial number of your device to register it!</p>
+				<input class="form-input" id="serial-number" type="text"/>
+				<button class="button button-success" id="register-device"><i class="fas fa-plus"></i>Register</button>
+
 				<div class="adm-tabel">
 					<table class="space-top">
 						<thead>
