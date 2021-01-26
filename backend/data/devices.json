@@ -1,0 +1,70 @@
+{
+  "deviceMappings": [
+    {
+      "deviceUuid": "00000000-0000-0000-0000-000000000001",
+      "device": {
+        "name": "Device1",
+        "description": "Device2 description",
+        "properties": [
+          {
+            "name": "status",
+            "value": "ok",
+            "sourceLink": "propertieslinnnnnnnnnnnnk"
+          },
+          {
+            "name": "status2",
+            "value": "ok2",
+            "sourceLink": "propertieslinnnnnnnnnnnnk2"
+          }
+        ],
+        "actions": [
+          {
+            "name": "Turn on/off",
+            "type": "SWITCHABLE",
+            "sourceLink": "actionslinnnnnnnnnnnnk"
+          }
+        ],
+        "events": [
+          {
+            "name": "overheating",
+            "description": "The lamp started overheating.",
+            "sourceLink": "eventslinnnnnnnnnnnnk"
+          }
+        ]
+      }
+    },
+    {
+      "deviceUuid": "00000000-0000-0000-0000-000000000002",
+      "device": {
+        "name": "Device2",
+        "description": "Device2 description",
+        "properties": [
+          {
+            "name": "status",
+            "value": "ok",
+            "sourceLink": "propertieslinnnnnnnnnnnnk"
+          },
+          {
+            "name": "status2",
+            "value": "ok2",
+            "sourceLink": "propertieslinnnnnnnnnnnnk2"
+          }
+        ],
+        "actions": [
+          {
+            "name": "Turn on/off",
+            "type": "SWITCHABLE",
+            "sourceLink": "actionslinnnnnnnnnnnnk"
+          }
+        ],
+        "events": [
+          {
+            "name": "overheating",
+            "description": "The lamp started overheating.",
+            "sourceLink": "eventslinnnnnnnnnnnnk"
+          }
+        ]
+      }
+    }
+  ]
+}

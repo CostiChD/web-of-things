@@ -1,28 +1,45 @@
 package com.wade.wet.data.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wade.wet.data.enums.WotActionType;
-import com.wade.wet.data.model.Device;
-import com.wade.wet.data.model.WotAction;
-import com.wade.wet.data.model.WotEvent;
-import com.wade.wet.data.model.WotProperty;
+import com.wade.wet.data.model.*;
 import org.apache.jena.rdf.model.*;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class DeviceService {
 
     private final ModelService modelService;
     private final Model model;
+    private final ObjectMapper objectMapper;
 
-    public DeviceService(ModelService modelService) {
+    public DeviceService(ModelService modelService, ObjectMapper objectMapper) {
         this.modelService = modelService;
         this.model = modelService.getModel();
+        this.objectMapper = objectMapper;
     }
 
-    public Device registerDevice(Device device) {
+    public Device registerDevice(String deviceUuid) {
+        File file = new File("devices.json");
+
+        try {
+            DeviceMappingList deviceMappings = objectMapper.readValue(file, DeviceMappingList.class);
+            Device device = deviceMappings.getDeviceMappingWithUuid(UUID.fromString(deviceUuid));
+            if (device != null) {
+                saveDeviceLocally(device);
+            }
+            return device;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private void saveDeviceLocally(Device device) {
         model.createResource(ModelService.DEVICE_URI + device.getName())
                 .addProperty(modelService.getDeviceNameProperty(), device.getName())
                 .addProperty(modelService.getDeviceDescriptionProperty(), device.getDescription());
@@ -51,7 +68,6 @@ public class DeviceService {
         }
 
         modelService.writeModel();
-        return device;
     }
 
     public Device getDevice(String deviceName) {

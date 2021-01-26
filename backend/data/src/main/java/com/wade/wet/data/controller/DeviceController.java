@@ -21,9 +21,9 @@ public class DeviceController {
         return ResponseEntity.status(HttpStatus.OK).body(deviceService.getDevice(deviceName));
     }
 
-    @PostMapping
-    public ResponseEntity<Device> registerDevice(@RequestBody Device device) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(deviceService.registerDevice(device));
+    @PostMapping("/{deviceUuid}")
+    public ResponseEntity<Device> registerDevice(@PathVariable String deviceUuid) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(deviceService.registerDevice(deviceUuid));
     }
 
     @DeleteMapping("/{deviceName}")
