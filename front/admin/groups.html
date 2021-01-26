@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Web of Things</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="../css/main.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+		integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+
+<body id="admin-zone">
+	<div class="module" data-module="partials/navbar.html"></div>
+
+	<main class="main">
+		<div class="top-nav">
+			<div class="container">
+				<div class="left-side">
+					<button class="mobile-nav-button" onclick="showNav()"><strong>Menu</strong></button>
+				</div>
+				<div class="right-side">
+					<div class="user">
+						<img src="../../images/admin.png" alt="avatar" />
+						<p class="name" id="admin-email"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="groups-container">
+				<div class="page-title">Groups</div>
+				<p>Write a name down if you want to create a new group!</p>
+				<input class="form-input" id="group-name" />
+				<button class="button button-success" id="create"><i class="fas fa-plus"></i>Create new</button>
+				<div class="adm-tabel">
+					<table class="space-top">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="groups-list">
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+			<div class="group-container">
+				<div class="exit-button-container">
+					<button class="button button-icon hover-exit" id="exit-group-container"><i class="fas fa-times-circle fa-2x"></i></button>
+				</div>
+
+				<div class="page-title">Group</div>
+
+				<div class="page-subtitle">Devices:</div>
+
+				<div class="adm-tabel">
+					<table class="space-top">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+							<tbody id="devices-list">
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+
+			<div class="overlay" id="overlay-add-permission">
+				<div class="popup" id="popup-add-permission">
+				   <div class="close" id="close-add-permission"><i class="fas fa-times-circle fa-2x"></i></div>
+				   <h2>Add a permission</h2>
+
+				   <label for="device-name">Enter the device name:</label>
+				   <input type="text" class="form-input" id="device-name"/>
+				   <button class="button button-submit button-success" id="add-permission-submit-button">Send</button>
+
+				</div>
+			</div>
+
+			<div class="overlay" id="overlay-add-user">
+				<div class="popup" id="popup-add-user">
+				   <div class="close" id="close-add-user"><i class="fas fa-times-circle fa-2x"></i></div>
+				   <h2>Add an user</h2>
+				   
+					<label for="user-email">Enter user's email:</label>
+					<input type="email" class="form-input" id="user-email"/>
+					<button class="button button-submit button-success" id="add-user-submit-button">Send</button>
+					
+				</div>
+			</div>
+
+		</div>
+	</main>
+
+	<script src="./scripts/admin-email.js"></script>
+	<script src="./scripts/groups.js"></script>
+	<script src="../scripts/modules.js"></script>
+	<script src="../scripts/left-side-navbar.js"></script>
+
+</body>
+
+</html>

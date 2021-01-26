@@ -1,0 +1,206 @@
+#admin-zone {
+	.page-title {
+		width: auto;
+		font-weight: bold;
+		font-size: 2rem;
+		margin-bottom: 30px;
+	}
+
+	.page-subtitle {
+		width: auto;
+		font-weight: bold;
+		font-size: 1.5rem;
+		margin-bottom: 0px;
+	}
+
+	.main {
+		.device-container {
+			display: flex;
+			flex-flow: column wrap;
+			justify-content: start;
+
+			.device {
+				padding: 0px 20px;
+				border: 2px black solid;
+				border-radius: 5px;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: space-between;
+
+				margin-bottom: 20px;
+
+				.device-details {
+					flex-basis: 50%;
+					display: flex;
+					flex-flow: column nowrap;
+					justify-content: center;
+
+					#device-name {
+						margin-bottom: 10px;
+					}
+
+					#description-title {
+						margin-bottom: 10px;
+					}
+
+					#description {
+						margin-bottom: 10px;
+					}
+
+					.device-properties {
+						margin-bottom: 20px;
+
+						.device-property {
+							margin-left: 30px;
+							margin-bottom: 5px;
+
+							p {
+								margin-left: 10px;
+								margin-bottom: 2px;
+							}
+						}
+					}
+
+					.device-events {
+						.device-event {
+							margin-left: 30px;
+							margin-bottom: 5px;
+
+							p {
+								margin-left: 10px;
+								margin-bottom: 2px;
+							}
+						}
+					}
+
+					h2 {
+						font-size: 20px;
+					}
+				}
+
+				.device-actions {
+					flex-basis: 50%;
+					display: flex;
+					flex-flow: column wrap;
+					justify-content: center;
+					align-items: center;
+
+					input[type="checkbox"] {
+						height: 0;
+						width: 0;
+						visibility: hidden;
+					}
+
+					.switch {
+						cursor: pointer;
+						text-indent: -9999px;
+						width: 100px;
+						height: 50px;
+						background: grey;
+						display: block;
+						border-radius: 100px;
+						position: relative;
+					}
+
+					.switch:after {
+						content: "";
+						position: absolute;
+						top: 5px;
+						left: 5px;
+						width: 45px;
+						height: 40px;
+						background: #fff;
+						border-radius: 90px;
+						transition: 0.3s;
+					}
+
+					input:checked + .switch {
+						background: #bada55;
+					}
+
+					input:checked + .switch:after {
+						left: calc(100% - 5px);
+						transform: translateX(-100%);
+					}
+
+					.switch:active:after {
+						width: 100px;
+					}
+				}
+			}
+		}
+
+		.group-container {
+			display: none;
+
+			.exit-button-container {
+				display: flex;
+				flex-direction: row-reverse;
+
+				#exit-group-container {
+					width: 40px;
+					height: 40px;
+				}
+			}
+		}
+
+		.device-container {
+			display: none;
+
+			.exit-button-container {
+				display: flex;
+				flex-direction: row-reverse;
+
+				#exit-device-container {
+					width: 40px;
+					height: 40px;
+				}
+			}
+		}
+
+		.overlay {
+			position: fixed;
+			height: 100%;
+			width: 100%;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background: rgba(0, 0, 0, 0.8);
+			display: none;
+		}
+
+		.popup {
+			max-width: 600px;
+			width: 80%;
+			max-height: 300px;
+			height: auto;
+			top: 35%;
+			left: 5%;
+			padding: 20px;
+			position: relative;
+			background: #fff;
+			margin: 20px auto;
+
+			border-radius: 10px;
+
+			* {
+				margin-bottom: 20px;
+			}
+		}
+
+		.close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			cursor: pointer;
+			color: #000;
+		}
+	}
+
+	td {
+		button {
+			margin-right: 10px;
+		}
+	}
+}

@@ -1,0 +1,62 @@
+@media screen and (min-width: 601px) {
+    #admin-zone {
+        .main {
+            margin-right: 15px;
+            margin-left: 250px;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #admin-zone {
+        .main {
+            width: 100%;
+            margin-left: 0px;
+        }
+    }
+}
+
+.container {
+    padding: 0 40px;
+}
+
+#admin-zone {
+    min-width: 100%;
+    min-height: 100%;
+    background-color: #F2F4F8;
+}
+
+.space-top {
+    margin-top: 20px;
+}
+
+
+table {
+    width: 100%;
+    text-align: left;
+    
+    thead {
+        background-color: #fff;
+        border-radius: 10px;
+        th {
+            padding: 20px 20px;
+        }
+    }
+
+    tbody {
+        tr {
+            background-color: #fff;
+            &:nth-child(2n) {
+                background-color: #f8f8f8;
+            }
+        }
+        td {
+            padding: 10px 20px;
+        }
+    }
+}
+
+.error-text {
+    color: #B00020;
+    margin-bottom: 10px;
+}
