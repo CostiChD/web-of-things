@@ -281,8 +281,9 @@ function seeGroup(response) {
 			});
 }
 
-function seeDevice() {
-
+function seeDevice(response) {
+	sessionStorage.setItem("device-name", response.deviceName);
+	window.location.href = "../admin/devices.html";
 }
 
 function deleteDevice(response) {

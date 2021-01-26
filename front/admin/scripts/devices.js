@@ -1,10 +1,21 @@
 let baseUrl = 'http://localhost:8082';
 
 (function () {
+    shouldShowDevice(sessionStorage.getItem("device-name"));
     createDeviceExitButtonListener();
     registerDeviceListener();
 	fetchDevices();
 })();
+
+function shouldShowDevice(deviceName) {
+    if (deviceName !== 'null' && deviceName) {
+        seeDevice({
+            deviceName: deviceName
+        });
+    }
+    sessionStorage.setItem("device-name", 'null');
+}
+
 
 function registerDeviceListener() {
 	document.getElementById('register-device').addEventListener("click", function (e) {
@@ -126,7 +137,6 @@ function seeDevice(response) {
 	fetch(baseUrl + '/devices/' + response.deviceName, {
         method: "GET",
         headers: {
-            'Content-Type': 'application/json'
         }
     })
     .then(resp => resp.json())
@@ -225,10 +235,10 @@ function seeDevice(response) {
             if (action.type === "SWITCHABLE") {
                 let input = document.createElement("input");
                 input.type = "checkbox";
-                input.id = device.name;
+                input.id = device.name + "switch";
 
                 let label = document.createElement("label");
-                label.htmlFor = device.name;
+                label.htmlFor = device.name + "switch";
                 label.className = "switch";
 
                 act.appendChild(input);
@@ -236,7 +246,15 @@ function seeDevice(response) {
             }
 
             if (action.type === "ADJUSTABLE") {
+                let input = document.createElement("input");
+                input.type = "range";
+                input.min = 1;
+                input.max = 100;
+                input.value = Math.floor(Math.random() * 100);
+                input.className = "slider";
+                input.id = device.name + "slider";
 
+                act.appendChild(input);
             }
 
             deviceActions.appendChild(act);
@@ -254,6 +272,25 @@ function seeDevice(response) {
         deviceContainer.appendChild(dev);
     })
     .catch(err => {
-        console.log(err)
+        console.log(err);
     });
+}
+
+function deleteDevice(response) {
+	var r = confirm("Are you sure you want to delete " + response.deviceName + " from " + response.groupName + "?");
+	if (r == true) {
+		fetch(baseUrl + '/permissions?groupName='+ response.groupName + '&deviceName=' + response.deviceName, {
+				method: "DELETE",
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+			.then(resp => resp)
+			.then(respp => {
+                window.location.href = "../admin/devices.html";
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	}
 }

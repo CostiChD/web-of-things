@@ -1,4 +1,17 @@
 #admin-zone {
+	::-webkit-input-placeholder {
+		font-style: italic;
+	}
+	:-moz-placeholder {
+		font-style: italic;
+	}
+	::-moz-placeholder {
+		font-style: italic;
+	}
+	:-ms-input-placeholder {
+		font-style: italic;
+	}
+
 	.page-title {
 		width: auto;
 		font-weight: bold;
@@ -21,13 +34,21 @@
 
 			.device {
 				padding: 0px 20px;
-				border: 2px black solid;
-				border-radius: 5px;
 				display: flex;
 				flex-flow: row nowrap;
 				justify-content: space-between;
 
-				margin-bottom: 20px;
+				h2 {
+					font-size: xx-large;
+				}
+
+				h3 {
+					font-size: larger;
+				}
+
+				p {
+					font-size: large;
+				}
 
 				.device-details {
 					flex-basis: 50%;
@@ -36,7 +57,7 @@
 					justify-content: center;
 
 					#device-name {
-						margin-bottom: 10px;
+						margin-bottom: 20px;
 					}
 
 					#description-title {
@@ -44,7 +65,8 @@
 					}
 
 					#description {
-						margin-bottom: 10px;
+						margin-left: 30px;
+						margin-bottom: 20px;
 					}
 
 					.device-properties {
@@ -52,7 +74,7 @@
 
 						.device-property {
 							margin-left: 30px;
-							margin-bottom: 5px;
+							margin-bottom: 10px;
 
 							p {
 								margin-left: 10px;
@@ -82,8 +104,43 @@
 					flex-basis: 50%;
 					display: flex;
 					flex-flow: column wrap;
-					justify-content: center;
+					justify-content: space-around;
 					align-items: center;
+
+					.slidecontainer {
+						width: 100%;
+					}
+
+					.slider {
+						-webkit-appearance: none;
+						width: 100%;
+						height: 25px;
+						background: #d3d3d3;
+						outline: none;
+						opacity: 0.7;
+						-webkit-transition: 0.2s;
+						transition: opacity 0.2s;
+					}
+
+					.slider:hover {
+						opacity: 1;
+					}
+
+					.slider::-webkit-slider-thumb {
+						-webkit-appearance: none;
+						appearance: none;
+						width: 25px;
+						height: 25px;
+						background: #4caf50;
+						cursor: pointer;
+					}
+
+					.slider::-moz-range-thumb {
+						width: 25px;
+						height: 25px;
+						background: #4caf50;
+						cursor: pointer;
+					}
 
 					input[type="checkbox"] {
 						height: 0;

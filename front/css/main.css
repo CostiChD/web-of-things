@@ -253,7 +253,6 @@ table tbody td {
 .top-nav .user {
   display: flex;
   align-content: flex-end;
-  color: #b2b2b2;
   align-items: center;
   justify-content: center;
 }
@@ -462,6 +461,18 @@ table tbody td {
     width: 100%;
   }
 }
+#admin-zone ::-webkit-input-placeholder {
+  font-style: italic;
+}
+#admin-zone :-moz-placeholder {
+  font-style: italic;
+}
+#admin-zone ::-moz-placeholder {
+  font-style: italic;
+}
+#admin-zone :-ms-input-placeholder {
+  font-style: italic;
+}
 #admin-zone .page-title {
   width: auto;
   font-weight: bold;
@@ -481,12 +492,18 @@ table tbody td {
 }
 #admin-zone .main .device-container .device {
   padding: 0px 20px;
-  border: 2px black solid;
-  border-radius: 5px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  margin-bottom: 20px;
+}
+#admin-zone .main .device-container .device h2 {
+  font-size: xx-large;
+}
+#admin-zone .main .device-container .device h3 {
+  font-size: larger;
+}
+#admin-zone .main .device-container .device p {
+  font-size: large;
 }
 #admin-zone .main .device-container .device .device-details {
   flex-basis: 50%;
@@ -495,20 +512,21 @@ table tbody td {
   justify-content: center;
 }
 #admin-zone .main .device-container .device .device-details #device-name {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 #admin-zone .main .device-container .device .device-details #description-title {
   margin-bottom: 10px;
 }
 #admin-zone .main .device-container .device .device-details #description {
-  margin-bottom: 10px;
+  margin-left: 30px;
+  margin-bottom: 20px;
 }
 #admin-zone .main .device-container .device .device-details .device-properties {
   margin-bottom: 20px;
 }
 #admin-zone .main .device-container .device .device-details .device-properties .device-property {
   margin-left: 30px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 #admin-zone .main .device-container .device .device-details .device-properties .device-property p {
   margin-left: 10px;
@@ -529,8 +547,38 @@ table tbody td {
   flex-basis: 50%;
   display: flex;
   flex-flow: column wrap;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+}
+#admin-zone .main .device-container .device .device-actions .slidecontainer {
+  width: 100%;
+}
+#admin-zone .main .device-container .device .device-actions .slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+#admin-zone .main .device-container .device .device-actions .slider:hover {
+  opacity: 1;
+}
+#admin-zone .main .device-container .device .device-actions .slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #4caf50;
+  cursor: pointer;
+}
+#admin-zone .main .device-container .device .device-actions .slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #4caf50;
+  cursor: pointer;
 }
 #admin-zone .main .device-container .device .device-actions input[type=checkbox] {
   height: 0;
