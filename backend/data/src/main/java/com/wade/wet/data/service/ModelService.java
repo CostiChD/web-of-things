@@ -20,11 +20,11 @@ import java.io.OutputStream;
 public class ModelService {
 
     public static final String MODEL_PATH = "group.rdf";
-    public static final String GROUP_URI = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com//groups/";
-    public static final String DEVICE_URI = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com//devices/";
-    public static final String DEVICE_PROPERTY_URI = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com//devices/properties/";
-    public static final String DEVICE_ACTION_URI = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com//devices/actions/";
-    public static final String DEVICE_EVENT_URI = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com//devices/events/";
+    public static final String GROUP_URI = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com/groups/";
+    public static final String DEVICE_URI = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com/devices/";
+    public static final String DEVICE_PROPERTY_URI = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com/devices/properties/";
+    public static final String DEVICE_ACTION_URI = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com/devices/actions/";
+    public static final String DEVICE_EVENT_URI = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com/devices/events/";
 
     private Property groupNameProperty;
     private Property hasUserProperty;
