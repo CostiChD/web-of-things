@@ -1,6 +1,6 @@
 document.querySelector("#login-form").addEventListener("submit", function (e) {
     e.preventDefault();
-    var baseUrl = "http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com";
+    var baseUrl = "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com";
 
     fetch(baseUrl + "/register", {
             method: "POST",
