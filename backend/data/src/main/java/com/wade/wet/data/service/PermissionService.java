@@ -28,7 +28,9 @@ public class PermissionService {
             String modelGroupAdmin = resource.getProperty(modelService.getHasAdminProperty()).getObject().toString();
 
             if (modelGroupName.equals(permission.getGroupName()) && modelGroupAdmin.equals(request.getAdminEmail())) {
-                resource.addProperty(modelService.getHasPermissionProperty(), permission.getDeviceName());
+                if (isRegistered(request.getPermission().getDeviceName())) {
+                    resource.addProperty(modelService.getHasPermissionProperty(), permission.getDeviceName());
+                }
                 break;
             }
         }
@@ -55,6 +57,21 @@ public class PermissionService {
         }
         modelService.writeModel();
         return "Permission deleted";
+    }
+
+    private boolean isRegistered(String deviceName) {
+
+        ResIterator resIterator = model.listSubjectsWithProperty(modelService.getDeviceNameProperty());
+
+        while (resIterator.hasNext()) {
+            Resource resource = resIterator.nextResource();
+
+            if (resource.getProperty(modelService.getDeviceNameProperty()).getObject().toString().equals(deviceName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

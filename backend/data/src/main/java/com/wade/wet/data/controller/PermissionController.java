@@ -28,7 +28,6 @@ public class PermissionController {
     @DeleteMapping
     public ResponseEntity<String> deletePermission(@PathParam("groupName") String groupName,
                                                    @PathParam("deviceName") String deviceName) {
-
         DeletePermissionRequest request = new DeletePermissionRequest(groupName, deviceName);
         return ResponseEntity.status(HttpStatus.OK).body(permissionService.deletePermission(request));
     }
