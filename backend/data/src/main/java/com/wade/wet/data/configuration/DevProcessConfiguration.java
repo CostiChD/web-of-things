@@ -29,31 +29,31 @@ public class DevProcessConfiguration {
 
     @EventListener(ApplicationReadyEvent.class)
     public void runAfterStartup() {
-        String adminEmail = "cristiandragomir323@gmail.com";
-        String userEmail = "ionescu.popescu@email.com";
-        String groupName = "TestGroup1";
-        String deviceName = "DeviceName1";
-
-        UserDto admin = new UserDto("AdminFName", "AdminLName", adminEmail, "parola");
-        try {
-            authentication.register(admin);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        UserDto user = new UserDto("UserFName", "UserLName", userEmail, "parola");
-        try {
-            authentication.register(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Group group = Group.createGroup(groupName);
-        groupService.createGroup(new CreateGroupRequest(group, adminEmail));
-
-        groupService.addUserToGroup(new AddUserToGroupRequest(adminEmail, userEmail, groupName));
-
-        Permission permission = new Permission(groupName, deviceName);
-        permissionService.createPermission(new CreatePermissionRequest(adminEmail, permission));
+//        String adminEmail = "cristiandragomir323@gmail.com";
+//        String userEmail = "ionescu.popescu@email.com";
+//        String groupName = "TestGroup1";
+//        String deviceName = "DeviceName1";
+//
+//        UserDto admin = new UserDto("AdminFName", "AdminLName", adminEmail, "parola");
+//        try {
+//            authentication.register(admin);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        UserDto user = new UserDto("UserFName", "UserLName", userEmail, "parola");
+//        try {
+//            authentication.register(user);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        Group group = Group.createGroup(groupName);
+//        groupService.createGroup(new CreateGroupRequest(group, adminEmail));
+//
+//        groupService.addUserToGroup(new AddUserToGroupRequest(adminEmail, userEmail, groupName));
+//
+//        Permission permission = new Permission(groupName, deviceName);
+//        permissionService.createPermission(new CreatePermissionRequest(adminEmail, permission));
     }
 }
