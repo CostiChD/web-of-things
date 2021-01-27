@@ -1,4 +1,4 @@
-let baseUrl = 'http://ec2-18-196-187-178.eu-central-1.compute.amazonaws.com:8082';
+let baseUrl = 'http://ec2-18-156-163-248.eu-central-1.compute.amazonaws.com/';
 
 (function () {
 	createGroupExitButtonListener();
