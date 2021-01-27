@@ -1,6 +1,6 @@
 document.querySelector("#login-form").addEventListener("submit", function (e) {
     e.preventDefault();
-    var urlBase = "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com";
+    var urlBase = "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082";
     
 
     fetch(urlBase + "/login", {

@@ -9,26 +9,26 @@
           {
             "name": "light-intensity",
             "value": "60%",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartBec/light-intensity"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartBec/light-intensity"
           },
           {
             "name": "color",
             "value": "white-blue",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartBec/color"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartBec/color"
           }
         ],
         "actions": [
           {
             "name": "Turn on/off",
             "type": "SWITCHABLE",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartBec/switch"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartBec/switch"
           }
         ],
         "events": [
           {
             "name": "overheating",
             "description": "The smart bec started overheating.",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartBec/events"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartBec/events"
           }
         ]
       }
@@ -42,26 +42,26 @@
           {
             "name": "status",
             "value": "open",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartThermostat/status"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartThermostat/status"
           },
           {
             "name": "learning",
             "value": "off",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartThermostat/learning"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartThermostat/learning"
           }
         ],
         "actions": [
           {
             "name": "Increase/decrease temperature",
             "type": "ADJUSTABLE",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartThermostat/temperature"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartThermostat/temperature"
           }
         ],
         "events": [
           {
             "name": "Learning done",
             "description": "The thermostat will stop learning after it found the best parameters for your house.",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartThermostat/events"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartThermostat/events"
           }
         ]
       }
@@ -75,26 +75,26 @@
           {
             "name": "Water level",
             "value": "30%",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartHumidifier/waterlevel"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartHumidifier/waterlevel"
           }
         ],
         "actions": [
           {
             "name": "Increase/decrease max water level",
             "type": "ADJUSTABLE",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartHumidifier/waterlevel"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartHumidifier/waterlevel"
           },
           {
             "name": "Turn on/off",
             "type": "SWITCHABLE",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartHumidifier/switch"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartHumidifier/switch"
           }
         ],
         "events": [
           {
             "name": "Water level high alert",
             "description": "The humidifier needs to stop because the water can is full.",
-            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com/devices/SmartHumidifier/events"
+            "sourceLink": "http://ec2-3-122-225-224.eu-central-1.compute.amazonaws.com:8082/devices/SmartHumidifier/events"
           }
         ]
       }
